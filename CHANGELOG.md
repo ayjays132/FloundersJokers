@@ -2,6 +2,10 @@
 
 ## 3.0.0 — Curio Circuit
 
+- Corrected all 54 compatibility-adapter atlas keys, passed each atlas explicitly through its Joker constructor, and added a registered-object runtime binder so every creator Joker renders its bespoke face instead of Balatro's stock fallback.
+- Guarded all legacy suit checks against non-individual calculation contexts, preventing `other_card` crashes during destruction and global evaluation passes.
+- Added a packaged, default-only migration for vanilla in-progress saves missing Steamodded 1814a scoring, hand-limit, CardArea, PokerHand, and permanent-bonus fields.
+- Rebuilt the README as a GitHub-native exhibition with two original pixel-art showcases, semantic HTML navigation, accessible alt text, feature panels, installation diagrams, and expandable technical detail.
 - Added Loaded, Workshop, and Curator Decks with deterministic, tradeoff-backed openings.
 - Added Wax Stamp → Sealing Press and Display Case → Private Collection Voucher chains.
 - Added The Quarry, The Lock, The House, and The Mirror as native Boss Blinds with bounded per-Blind state.

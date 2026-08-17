@@ -29,11 +29,26 @@ Its loader log recorded:
 - successful environment totals of 53 atlases, 17 sounds, 92 centers, 6 Blinds, and 26 Challenges—exactly +11 atlases, +4 sounds, +7 centers, +4 Blinds, and +6 Challenges over the certified 2.1 matrix;
 - no `ERROR`, crash, or StackTrace marker.
 
+## Installed-archive regression certification
+
+The final ZIP was also installed into the normal Balatro Mods directory beside an **unmodified** Steamodded beta-1814a installation and launched against the existing player profile. This is the same folder structure distributed to users, not a workspace load or a machine-specific framework patch.
+
+The launch at `2026-08-16 20:47:55` remained running and recorded `Bound and verified 33 bespoke Joker atlases`. Thirty-three is the correct vanilla-mod-set total: 27 creator Jokers plus six canonical Dice Jokers. Optional suit integrations are audited by the same binder and expand the registered total up to 60 when their defining mods are installed.
+
+This regression pass additionally certifies:
+
+- all 54 legacy constructors explicitly name their own atlas, preventing the compatibility adapter from resolving to Balatro's stock Joker face;
+- every registered Flounder Joker is rebound and checked against a unique packaged atlas at startup;
+- all 40 legacy suit-scoring branches require `context.other_card` before dereferencing it, covering destruction, global-evaluation, Blueprint, and other non-individual calculation contexts;
+- the 60-card README gallery was regenerated directly from the shipped 2× runtime sprites after the final art audit;
+- no local Steamodded source modification is required or included.
+
 ## Deterministic release gates
 
 - 60 named Jokers, comprising 54 creator cards and 6 aligned Dice-suite additions;
 - 60 exact `71×95` sprites and 60 exact `142×190` companions;
 - unique runtime-art hashes with no unregistered Joker sprite in either scale;
+- 54 explicit legacy constructor-atlas bindings plus a fail-closed registered-object runtime audit;
 - 2 twelve-frame animated seal sheets with occupancy, edge-bleed, centroid-drift, and silhouette-diversity checks;
 - 4 canonical Dice objects and complete presentation mapping;
 - 3 Decks, 4 Boss Blinds, 4 Vouchers, and 6 immediately available Challenges;

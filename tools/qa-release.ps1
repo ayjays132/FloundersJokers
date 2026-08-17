@@ -86,6 +86,8 @@ function Assert-OpaqueFrameSheet {
 }
 
 $legacy = Get-Content -Raw (Join-Path $workspace 'FloundersJokers.lua')
+$main = Get-Content -Raw (Join-Path $workspace 'main.lua')
+$readme = Get-Content -Raw (Join-Path $workspace 'README.md')
 $suite = Get-Content -Raw (Join-Path $workspace 'modules/dice_suite.lua')
 $dice = Get-Content -Raw (Join-Path $workspace 'modules/dice_seals.lua')
 $presentation = Get-Content -Raw (Join-Path $workspace 'modules/presentation.lua')
@@ -93,6 +95,8 @@ $sounds = Get-Content -Raw (Join-Path $workspace 'modules/sounds.lua')
 $configUi = Get-Content -Raw (Join-Path $workspace 'modules/config_ui.lua')
 $configSource = Get-Content -Raw (Join-Path $workspace 'config.lua')
 $progression = Get-Content -Raw (Join-Path $workspace 'modules/progression.lua')
+$saveCompat = Get-Content -Raw (Join-Path $workspace 'modules/save_compat.lua')
+$atlasBindings = Get-Content -Raw (Join-Path $workspace 'modules/atlas_bindings.lua')
 $decks = Get-Content -Raw (Join-Path $workspace 'modules/decks.lua')
 $vouchers = Get-Content -Raw (Join-Path $workspace 'modules/vouchers.lua')
 $blinds = Get-Content -Raw (Join-Path $workspace 'modules/blinds.lua')
@@ -189,10 +193,20 @@ foreach ($asset in @('bl_quarry.png','bl_lock.png','bl_house.png','bl_mirror.png
 
 if ($legacy -match "pseudorandom\('lucky_money'\)") { $failures.Add('Shared lucky_money RNG stream remains') }
 if ($legacy -match 'function\s+Tag:init') { $failures.Add('Global Tag:init override remains') }
+if ([regex]::Matches($legacy, 'SMODS\.Sprite:new\(\s*"j_"\s*\.\.').Count -ne 0) { $failures.Add('Legacy Joker atlas keys still use the incompatible j_ prefix') }
+if ([regex]::Matches($legacy, '(?m)([A-Za-z_]\w*)\.eternal_compat,\s*nil,\s*\1\.slug').Count -ne 54) { $failures.Add('All 54 legacy Joker constructors must explicitly bind their matching atlas') }
+if ($main -notmatch "modules/atlas_bindings\.lua" -or $atlasBindings -notmatch 'bound\s*>=\s*33\s+and\s+bound\s*<=\s*60' -or $atlasBindings -notmatch 'center\.atlas\s*=\s*atlas_key') { $failures.Add('The fail-closed registered-Joker runtime atlas audit is missing') }
+if ([regex]::Matches($legacy, '(?<!context\.other_card and )context\.other_card:is_suit').Count -ne 0) { $failures.Add('An unsafe legacy context.other_card suit access remains') }
+if ($main -notmatch "modules/save_compat\.lua" -or $saveCompat -notmatch 'save\.SCORING_CALC' -or $saveCompat -notmatch 'card_limits' -or $saveCompat -notmatch 'played_this_ante') { $failures.Add('Packaged legacy-save migration is missing or incomplete') }
 if ($legacy -match 'SMODS\.Jokers\.') { $failures.Add('Obsolete pre-1.0 SMODS.Jokers registry lookup remains') }
 if ($legacy -match 'SMODS\.INIT\.(CodexArcanum|MoreFluff|Reverie|MusicalSuit|CrownsSuit|SixSuit)') { $failures.Add('Legacy optional-mod detection remains') }
 if ($legacy -match '^--- STEAMODDED HEADER') { $failures.Add('Legacy Lua file still advertises a second mod header') }
 if (-not (Test-Path -LiteralPath (Join-Path $workspace 'docs/RELEASE_CERTIFICATION.md'))) { $failures.Add('Release certification is missing') }
+foreach ($readmeAsset in @('docs/readme-hero.png','docs/readme-progression.png')) {
+    if (-not (Test-Path -LiteralPath (Join-Path $workspace $readmeAsset))) { $failures.Add("README showcase asset missing: $readmeAsset") }
+    elseif ((Get-Item -LiteralPath (Join-Path $workspace $readmeAsset)).Length -lt 100000) { $failures.Add("README showcase asset is unexpectedly small: $readmeAsset") }
+    if ($readme -notmatch [regex]::Escape($readmeAsset)) { $failures.Add("README does not reference showcase asset: $readmeAsset") }
+}
 
 $metadataPath = Join-Path $workspace 'flounderjokers.json'
 try { $metadata = Get-Content -Raw $metadataPath | ConvertFrom-Json }

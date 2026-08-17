@@ -1,8 +1,12 @@
 <div align="center">
 
-# Flounder’s Jokers
+<picture>
+  <img src="docs/readme-hero.png" alt="A handcrafted pixel-art museum exhibit of Flounder's Jokers, Dice Seals, wax stamp, sealing press, gems, and creator card families" width="100%">
+</picture>
 
-### Definitive Edition · Curio Circuit 3.0
+<h1>Flounder’s Jokers</h1>
+
+<h3>Definitive Edition · Curio Circuit 3.0</h3>
 
 **Sixty creator-faithful Jokers. Canonical Dice Seals. A complete native progression chapter.**
 
@@ -11,21 +15,45 @@
 [![QA](https://img.shields.io/badge/release_QA-strict_pass-D4AF37?style=for-the-badge)](docs/RELEASE_CERTIFICATION.md)
 [![Motion](https://img.shields.io/badge/reduced_motion-supported-7159C1?style=for-the-badge)](ART_DIRECTION.md)
 
-The creator-faithful, production-grade edition of Flounder’s Balatro work—preserving the complete original catalogue and its logic while finishing the visual, audio, compatibility, and progression layers around it.
+<p>The creator-faithful, production-grade edition of Flounder’s Balatro work—preserving the complete original catalogue and its logic while finishing the visual, audio, compatibility, and progression layers around it.</p>
 
-![Curio Circuit progression art](docs/progression-showcase.png)
-
-<sub>Three decks · Four Boss Blinds · Two two-tier Voucher chains · Six mastery challenges</sub>
+<p>
+  <kbd>60 JOKERS</kbd>&nbsp;
+  <kbd>2 DICE SEALS</kbd>&nbsp;
+  <kbd>3 DECKS</kbd>&nbsp;
+  <kbd>4 BOSS BLINDS</kbd>&nbsp;
+  <kbd>4 VOUCHERS</kbd>&nbsp;
+  <kbd>6 CHALLENGES</kbd>
+</p>
 
 </div>
 
 ---
 
-**Explore:** [Definitive pack](#the-definitive-pack) · [Creator preservation](#what-remains-exactly-flounders) · [Dice mechanics](#canonical-dice-mechanics) · [Progression](#progression-chapter) · [Presentation](#visual-and-effects-direction) · [Install](#requirements-and-installation) · [Verify](#verification)
+<div align="center">
+  <a href="#the-definitive-pack"><b>Catalogue</b></a> ·
+  <a href="#what-remains-exactly-flounders"><b>Preservation</b></a> ·
+  <a href="#canonical-dice-mechanics"><b>Dice</b></a> ·
+  <a href="#progression-chapter"><b>Progression</b></a> ·
+  <a href="#visual-and-effects-direction"><b>Presentation</b></a> ·
+  <a href="#requirements-and-installation"><b>Install</b></a> ·
+  <a href="#verification"><b>Verify</b></a>
+</div>
+
+<br>
 
 ![All 60 remastered Jokers](docs/remaster-gallery.png)
 
 ## The definitive pack
+
+<table>
+  <tr>
+    <td align="center" width="25%"><strong>Creator catalogue</strong><br><sub>54 original calculation bodies retained</sub></td>
+    <td align="center" width="25%"><strong>Canonical expansion</strong><br><sub>6 Dice-suite Jokers + both Seals</sub></td>
+    <td align="center" width="25%"><strong>Progression</strong><br><sub>17 native 3.0 gameplay objects</sub></td>
+    <td align="center" width="25%"><strong>Presentation</strong><br><sub>158 runtime PNGs + 17 injected sounds</sub></td>
+  </tr>
+</table>
 
 - **60 Jokers:** all 54 original cards plus one tightly balanced six-card Dice Seal suite.
 - **2 canonical animated Seals:** Dice Seal and Cursed Dice Seal, each using a measured twelve-frame atlas.
@@ -73,6 +101,14 @@ This mirrors the creator’s stone / tool / gem / value / retrigger / transforme
 
 ## Progression chapter
 
+<picture>
+  <img src="docs/readme-progression.png" alt="Pixel-art progression exhibit showing the Loaded, Workshop, and Curator decks; Quarry, Lock, House, and Mirror Boss Blinds; four voucher relics; and six mastery plinths" width="100%">
+</picture>
+
+<div align="center"><sub>A discovery-first exhibit: everything is visible immediately; mastery supplies the progression.</sub></div>
+
+<br>
+
 | Type | Content | Purpose |
 |---|---|---|
 | Decks | Loaded, Workshop, Curator | Enter through Dice risk, a family starter, or collection weighting. |
@@ -109,6 +145,14 @@ See [`ART_DIRECTION.md`](ART_DIRECTION.md), [`audio/SFX_DIRECTION.md`](audio/SFX
 
 ## Requirements and installation
 
+<table>
+  <tr>
+    <td align="center" width="33%"><strong>1 · Loader</strong><br><sub>Lovely 0.9.0+</sub></td>
+    <td align="center" width="33%"><strong>2 · Framework</strong><br><sub>Steamodded beta-1800+</sub></td>
+    <td align="center" width="33%"><strong>3 · Mod</strong><br><sub>One complete FloundersJokers folder</sub></td>
+  </tr>
+</table>
+
 1. Install Balatro with Lovely and **Steamodded 1.0.0-beta-1800 or newer**.
 2. Copy this entire folder into Balatro’s `Mods` directory as one folder.
 3. Confirm the final path contains `flounderjokers.json`, `main.lua`, `modules`, and `assets` directly beneath it.
@@ -116,12 +160,31 @@ See [`ART_DIRECTION.md`](ART_DIRECTION.md), [`audio/SFX_DIRECTION.md`](audio/SFX
 
 Do not install `Dice-Seals-main` separately; it is preserved only as source history and is already part of the definitive pack.
 
+> [!NOTE]
+> 3.0 includes a conservative migration for in-progress vanilla saves created before Steamodded added scoring-calculation, hand-limit, CardArea, PokerHand, and permanent-bonus fields. It fills only missing fields with vanilla defaults and never rewrites an existing modded value. No user-specific Steamodded edits are bundled or required.
+
 Optional collaboration families appear only when their defining mods are present: Codex Arcanum, MoreFluff, Reverie, Musical Suit, Crowns Suit, and SixSuit.
 
 <details>
 <summary><strong>Clean upgrade from 2.1</strong></summary>
 
 Replace the complete old mod folder with the 3.0 folder. Do not merge folders and do not install the archived Dice mini-mod separately. Existing Joker keys and historical internal spellings are retained for save compatibility.
+
+</details>
+
+<details>
+<summary><strong>Expected folder layout</strong></summary>
+
+```text
+Balatro/Mods/FloundersJokers/
+├── flounderjokers.json
+├── main.lua
+├── FloundersJokers.lua
+├── assets/
+├── audio/
+├── modules/
+└── docs/
+```
 
 </details>
 
@@ -152,8 +215,12 @@ The generator uses ElevenLabs `eleven_text_to_sound_v2`, keeps credentials out o
 
 ## Credits and provenance
 
-- **Original mod, all original mechanics, card identities, keys, family logic, and Dice Seal concepts:** Flounder
-- **Definitive-edition art, compatibility migration, animation, audio direction, QA tooling, and documentation:** produced in service of Flounder’s original work
+<table>
+  <tr>
+    <td width="50%"><strong>Creator authority</strong><br>Original cards, identities, mechanics, keys, family logic, and Dice Seal concepts belong to Flounder.</td>
+    <td width="50%"><strong>Definitive-edition craft</strong><br>Migration, remastered production assets, progression presentation, audio mastering, QA tooling, and documentation serve that original work.</td>
+  </tr>
+</table>
 
 No new license is asserted. Distribution rights and attribution remain subject to the original creator’s terms.
 

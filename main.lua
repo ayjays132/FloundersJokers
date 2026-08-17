@@ -7,6 +7,11 @@ for key, value in pairs(defaults) do
     if mod.config[key] == nil then mod.config[key] = value end
 end
 
+-- Preserve in-progress vanilla runs when Steamodded introduces new serialized
+-- fields. This migration is packaged with the mod, not applied to a user's
+-- Steamodded installation.
+assert(SMODS.load_file('modules/save_compat.lua'))()
+
 -- The catalogue remains creator-authored 0.9.8 code. Steamodded maintains an
 -- official adapter for it; wrapping just this file preserves its calculation
 -- semantics while every new component uses the current object API.
@@ -21,6 +26,10 @@ end)
 -- Dice Seals and their six-card suite are canonical creator content.
 assert(SMODS.load_file('modules/dice_seals.lua'))()
 assert(SMODS.load_file('modules/dice_suite.lua'))()
+
+-- Fail closed if any Joker could fall back to stock art. This binds all 54
+-- creator originals and the six canonical Dice Jokers to distinct atlases.
+assert(SMODS.load_file('modules/atlas_bindings.lua'))()
 
 -- The 3.0 progression chapter uses only native current-SMODS objects and
 -- namespaced run state. Existing Joker and Seal calculations remain untouched.
