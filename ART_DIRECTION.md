@@ -18,6 +18,8 @@ The collection is unified by treatment, not by repeating one object. Each card s
 
 ## Animated token language
 
+The 3.0 progression chapter extends the curio-cabinet premise beyond Jokers. Loaded Deck uses emerald felt and brass dice corners; Workshop Deck uses a scarred maker's bench; Curator Deck uses a dark illuminated cabinet. Boss Blinds reduce their concepts to quarry stone, lock brass, marquee light, and fractured silver. Voucher art remains tactile: wax, press, glass case, velvet cabinet. Each uses a six-frame diagonal material glint at 6 fps, frozen by Reduced Motion.
+
 Dice and Cursed Dice Seals are small transparent overlays, so silhouette and value separation take priority over card-scale detail. Each token uses one central D20/eye emblem, a heavy wax-and-enamel rim, and ample transparent padding. The native twelve-frame sheet performs restrained squash/stretch, secondary settle, and a traveling specular glint at 8 fps. Alpha-centroid drift is capped by QA so it never reads as rank/suit movement or obscures card information.
 
 Trigger feedback uses a four-cell semantic mote atlas—gold, Dice, cursed, and arcane—over one 320 ms damped ballistic arc. A separate post-edition DrawStep supplies the family glint. Both layers bind to the card's existing transform rather than replacing Balatro's card physics, and both are suppressed by Reduced Motion.
@@ -31,3 +33,5 @@ The built-in image generation workflow used a source image for each card as the 
 > Redesign this card as its own final mechanic-driven scene. Preserve the creator's tall Joker-card proportions, rounded border, vertical lettering, and palette family. Replace temporary or repeated center art with a singular narrative composition tied to the card's name and effect. Use a decisive focal action, supporting props, foreground/background separation, atmospheric light, material-specific rendering, crisp retro pixel clusters, controlled dithering, and vintage print texture. Keep it readable at 71x95. No generic floating icon, repeated template, extra text, watermark, logo, photorealism, or glossy 3D.
 
 Each card then received its own subject specification—for example, Missile Tip became a heart-marked launch complex, Lucky Stone a clover-pierced hag stone, Crystalized Stone a geode gramophone, Blood Gem an apothecary chalice, and The Boss a private star-casino office.
+
+The progression atlas was generated in built-in ImageGen mode as a strict eleven-object contact sheet, then cropped and nearest-neighbour reduced into runtime atlases. The preserved source is `archive/remaster-sources/fj-progression-source.png`; names and rules are rendered by Balatro rather than baked into art.

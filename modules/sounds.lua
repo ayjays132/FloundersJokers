@@ -9,6 +9,10 @@ local files = {
     conjure = 'conjure.ogg',
     dice = 'dice.ogg',
     cursed = 'cursed.ogg',
+    deck = 'deck.ogg',
+    voucher = 'voucher.ogg',
+    blind = 'blind.ogg',
+    challenge = 'challenge.ogg',
 }
 
 for key, path in pairs(files) do
@@ -21,6 +25,7 @@ local fallback = {
     arcana = 'holo1', stone = 'chips1', weapon = 'chips2', coin = 'coin1',
     gem = 'multhit1', echo = 'tarot2', transform = 'tarot1',
     conjure = 'timpani', dice = 'generic1', cursed = 'glass2',
+    deck = 'card1', voucher = 'timpani', blind = 'cancel', challenge = 'win',
 }
 
 -- Measured trims compensate only for the few deliberately high-crest masters

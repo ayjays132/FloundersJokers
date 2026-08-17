@@ -27,6 +27,10 @@ $prompts = [ordered]@{
     conjure = "Small dimensional pop with a single playing-card flutter and soft magical settle. $common"
     dice = "One twenty-sided die rolling briefly across casino felt and settling with a satisfying precise click. $common"
     cursed = "One twenty-sided die reverse-rattling on felt with a brief ominous low sting, controlled and subtle. $common"
+    deck = "One premium card deck placed on casino felt, a soft leather-and-paper landing with a restrained brass corner tick and no shuffle cascade. $common"
+    voucher = "A tactile wax seal pressed into paper followed by one compact precision brass mechanism click, luxurious and restrained. $common"
+    blind = "A short boss warning cue: low carved-stone impact, tight brass lock snap, and one dim marquee pulse, tense but not loud. $common"
+    challenge = "A concise mastery-complete flourish: one bright glass curio glint, soft casino token settle, and confident paper-card lift, celebratory without melody. $common"
 }
 
 $headers = @{ 'xi-api-key' = $apiKey; 'Content-Type' = 'application/json' }

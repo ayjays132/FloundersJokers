@@ -1,4 +1,4 @@
-# Release certification — 2.1.0
+# Release certification — 3.0.0
 
 **Status:** production-ready canonical package  
 **Certified:** 2026-08-16  
@@ -12,7 +12,7 @@
 | LÖVE | 11.5.0 |
 | Lovely | 0.9.0 |
 | Steamodded | 1.0.0~BETA-1814a |
-| Flounder’s Jokers | 2.1.0 |
+| Flounder’s Jokers | 3.0.0 |
 
 ## Live isolated smoke test
 
@@ -20,11 +20,13 @@ The packaged ZIP was installed beside the exact official Lovely and Steamodded r
 
 The first launch exposed one obsolete Steamodded pre-1.0 registry lookup in the legacy adapter. The adapter was corrected to bind `loc_def` and `calculate` directly to each registered Joker object, preserving every calculation body and gameplay value. The package was rebuilt and retested.
 
-The final launch remained stable for 25 seconds and was then stopped by verified process path. Its loader log recorded:
+The 3.0 package was installed alone beside official Lovely and Steamodded artifacts in a fresh copied profile. After clearing the copied profile's loader blacklist, the final launch remained stable for 25 seconds and was stopped by verified executable path and PID. Evidence is recorded at `dist/runtime-smoke-20260816-174736/profile6/AppData/Roaming/Balatro/Mods/lovely/log/lovely-2026.08.16-19.49.46.log`.
+
+Its loader log recorded:
 
 - Lovely initialization and Steamodded preflight;
-- valid `flounderjokers.json` discovery for version 2.1.0;
-- successful injection of 42 atlases, 13 sounds, 85 centers, 6 seals, and 24 draw steps across the complete test environment;
+- valid `flounderjokers.json` discovery for version 3.0.0;
+- successful environment totals of 53 atlases, 17 sounds, 92 centers, 6 Blinds, and 26 Challenges—exactly +11 atlases, +4 sounds, +7 centers, +4 Blinds, and +6 Challenges over the certified 2.1 matrix;
 - no `ERROR`, crash, or StackTrace marker.
 
 ## Deterministic release gates
@@ -34,9 +36,11 @@ The final launch remained stable for 25 seconds and was then stopped by verified
 - unique runtime-art hashes with no unregistered Joker sprite in either scale;
 - 2 twelve-frame animated seal sheets with occupancy, edge-bleed, centroid-drift, and silhouette-diversity checks;
 - 4 canonical Dice objects and complete presentation mapping;
+- 3 Decks, 4 Boss Blinds, 4 Vouchers, and 6 immediately available Challenges;
+- 11 six-frame progression atlases at both runtime scales;
 - 25 creator probability hooks with isolated deterministic RNG streams;
 - Reduced Motion and saved presentation-control gates;
-- 10 unique Vorbis masters at 44.1 kHz stereo, 0.75–1.05 seconds, −24.5 to −19.5 LUFS, and no peak above −1.0 dBFS;
+- 14 unique Vorbis masters at 44.1 kHz stereo, 0.75–1.05 seconds, −24.5 to −19.5 LUFS, and no peak above −1.0 dBFS;
 - measured family compensation plus a bounded 180 ms voice budget for dense multi-card trigger sequences;
 - Lua parsing, metadata validation, forbidden-global override checks, package-content checks, and credential-pattern scans.
 

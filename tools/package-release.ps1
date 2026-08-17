@@ -6,7 +6,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Release QA failed; package was not created.' }
 
 $dist = Join-Path $workspace 'dist'
 $stage = Join-Path $dist 'FloundersJokers'
-$zip = Join-Path $dist 'FloundersJokers-Definitive-2.1.0.zip'
+$zip = Join-Path $dist 'FloundersJokers-Definitive-3.0.0.zip'
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
 
 $distRoot = [System.IO.Path]::GetFullPath($dist).TrimEnd('\') + '\'

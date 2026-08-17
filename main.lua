@@ -22,6 +22,14 @@ end)
 assert(SMODS.load_file('modules/dice_seals.lua'))()
 assert(SMODS.load_file('modules/dice_suite.lua'))()
 
+-- The 3.0 progression chapter uses only native current-SMODS objects and
+-- namespaced run state. Existing Joker and Seal calculations remain untouched.
+assert(SMODS.load_file('modules/progression.lua'))()
+assert(SMODS.load_file('modules/decks.lua'))()
+assert(SMODS.load_file('modules/vouchers.lua'))()
+assert(SMODS.load_file('modules/blinds.lua'))()
+assert(SMODS.load_file('modules/challenges.lua'))()
+
 -- Presentation polish is canonical; volume remains configurable in the saved
 -- mod config for accessibility and streamer workflows.
 assert(SMODS.load_file('modules/sounds.lua'))()

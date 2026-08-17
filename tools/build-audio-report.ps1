@@ -5,7 +5,7 @@ $workspace = Split-Path -Parent $PSScriptRoot
 $soundDir = Join-Path $workspace 'assets/sounds'
 $docsDir = Join-Path $workspace 'docs'
 $ffmpeg = (Get-Command ffmpeg -ErrorAction Stop).Source
-$names = @('arcana','stone','weapon','coin','gem','echo','transform','conjure','dice','cursed')
+$names = @('arcana','stone','weapon','coin','gem','echo','transform','conjure','dice','cursed','deck','voucher','blind','challenge')
 
 function Measure-BandMean {
     param([string]$Path, [string]$Filter)
@@ -38,7 +38,7 @@ $rows = foreach ($name in $names) {
 $markdown = [System.Collections.Generic.List[string]]::new()
 $markdown.Add('# Audio mastering report')
 $markdown.Add('')
-$markdown.Add('All ten cues are measured from the packaged OGG masters. Band values are mean dBFS after the same 90–300 Hz, 300 Hz–3 kHz, and 3–12 kHz analysis filters.')
+$markdown.Add('All fourteen cues are measured from the packaged OGG masters. Band values are mean dBFS after the same 90–300 Hz, 300 Hz–3 kHz, and 3–12 kHz analysis filters.')
 $markdown.Add('')
 $markdown.Add('| Cue | Sec | LUFS-I | True peak | Crest | Low | Mid | High |')
 $markdown.Add('|---|---:|---:|---:|---:|---:|---:|---:|')

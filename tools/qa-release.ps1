@@ -61,6 +61,30 @@ function Assert-FrameSheet {
     finally { $bitmap.Dispose() }
 }
 
+function Assert-OpaqueFrameSheet {
+    param([string]$Path, [int]$FrameWidth, [int]$FrameHeight, [int]$Frames)
+    if (-not (Test-Path -LiteralPath $Path)) { $failures.Add("Missing frame sheet: $Path"); return }
+    $bitmap = [System.Drawing.Bitmap]::FromFile($Path)
+    try {
+        if ($bitmap.Width -ne $FrameWidth * $Frames -or $bitmap.Height -ne $FrameHeight) {
+            $failures.Add("Invalid opaque frame grid: $Path"); return
+        }
+        $signatures = [System.Collections.Generic.HashSet[string]]::new()
+        for ($frame = 0; $frame -lt $Frames; $frame++) {
+            $sum = 0L
+            for ($y = 0; $y -lt $FrameHeight; $y++) {
+                for ($x = 0; $x -lt $FrameWidth; $x++) {
+                    $p = $bitmap.GetPixel($frame * $FrameWidth + $x, $y)
+                    $sum += ($p.R * 3 + $p.G * 5 + $p.B * 7) * (1 + $x + $y * 2)
+                }
+            }
+            [void]$signatures.Add([string]$sum)
+        }
+        if ($signatures.Count -lt 3) { $failures.Add("Insufficient opaque-frame diversity in $Path") }
+    }
+    finally { $bitmap.Dispose() }
+}
+
 $legacy = Get-Content -Raw (Join-Path $workspace 'FloundersJokers.lua')
 $suite = Get-Content -Raw (Join-Path $workspace 'modules/dice_suite.lua')
 $dice = Get-Content -Raw (Join-Path $workspace 'modules/dice_seals.lua')
@@ -68,6 +92,11 @@ $presentation = Get-Content -Raw (Join-Path $workspace 'modules/presentation.lua
 $sounds = Get-Content -Raw (Join-Path $workspace 'modules/sounds.lua')
 $configUi = Get-Content -Raw (Join-Path $workspace 'modules/config_ui.lua')
 $configSource = Get-Content -Raw (Join-Path $workspace 'config.lua')
+$progression = Get-Content -Raw (Join-Path $workspace 'modules/progression.lua')
+$decks = Get-Content -Raw (Join-Path $workspace 'modules/decks.lua')
+$vouchers = Get-Content -Raw (Join-Path $workspace 'modules/vouchers.lua')
+$blinds = Get-Content -Raw (Join-Path $workspace 'modules/blinds.lua')
+$challenges = Get-Content -Raw (Join-Path $workspace 'modules/challenges.lua')
 $legacySlugs = [regex]::Matches($legacy, 'slug\s*=\s*"([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique
 $suiteSlugs = [regex]::Matches($suite, "register_atlas\(key\)|'([a-z_]+)'" ) | ForEach-Object { $_.Groups[1].Value } | Where-Object { $_ -in @('loaded_stone','brass_cup','payout_gem','house_edge','double_down','croupier') } | Sort-Object -Unique
 
@@ -86,6 +115,19 @@ if ($effectHooks -ne 25) { $failures.Add("Expected 25 creator probability-effect
 if ([regex]::Matches($suite, 'SMODS\.Joker\s*\{').Count -ne 6) { $failures.Add('Dice suite must register exactly 6 native Jokers') }
 if ([regex]::Matches($dice, 'SMODS\.Seal\s*\{').Count -ne 2) { $failures.Add('Canonical Dice module must register exactly 2 native Seals') }
 if ([regex]::Matches($dice, 'SMODS\.Consumable\s*\{').Count -ne 2) { $failures.Add('Canonical Dice module must register exactly 2 native Consumables') }
+if ([regex]::Matches($decks, 'SMODS\.Back\s*\{').Count -ne 3) { $failures.Add('Progression chapter must register exactly 3 native Decks') }
+if ([regex]::Matches($vouchers, 'SMODS\.Voucher\s*\{').Count -ne 4) { $failures.Add('Progression chapter must register exactly 4 native Vouchers') }
+if ([regex]::Matches($blinds, 'SMODS\.Blind\s*\{').Count -ne 4) { $failures.Add('Progression chapter must register exactly 4 native Blinds') }
+if ([regex]::Matches($challenges, "challenge\('").Count -ne 6) { $failures.Add('Progression chapter must register exactly 6 native Challenges') }
+if ($progression -notmatch 'G\.GAME\.fj_progression' -or $progression -match '^\s*function\s+(create_card|poll_edition|Tag:|Blind:)') {
+    $failures.Add('Progression state is not namespaced or introduces a forbidden global override')
+}
+if ($progression -notmatch 'fj_workshop_start' -or $vouchers -notmatch 'modify_joker_weights' -or $vouchers -notmatch 'no_negative\s*=\s*true') {
+    $failures.Add('Deterministic deck selection, native weighting, or non-Negative edition safeguards are missing')
+}
+if ($blinds -notmatch 'house_probability_original' -or $blinds -notmatch 'restore_house' -or $challenges -notmatch 'unlocked\s*=\s*function\(\) return true') {
+    $failures.Add('Blind restoration or immediately available challenge guarantees are missing')
+}
 if ($dice -notmatch 'G\.SETTINGS\.reduced_motion' -or $suite -notmatch 'G\.SETTINGS\.reduced_motion' -or $presentation -notmatch 'G\.SETTINGS\.reduced_motion') {
     $failures.Add('Added animation and card juice must respect Reduced Motion')
 }
@@ -136,6 +178,14 @@ Assert-FrameSheet (Join-Path $workspace 'assets/1x/dice_seal_animated.png') 71 9
 Assert-FrameSheet (Join-Path $workspace 'assets/2x/dice_seal_animated.png') 142 190 12
 Assert-FrameSheet (Join-Path $workspace 'assets/1x/cursed_dice_seal_animated.png') 71 95 12
 Assert-FrameSheet (Join-Path $workspace 'assets/2x/cursed_dice_seal_animated.png') 142 190 12
+foreach ($asset in @('b_loaded.png','b_workshop.png','b_curator.png','v_wax_stamp.png','v_sealing_press.png','v_display_case.png','v_private_collection.png')) {
+    Assert-OpaqueFrameSheet (Join-Path $workspace "assets/1x/$asset") 71 95 6
+    Assert-OpaqueFrameSheet (Join-Path $workspace "assets/2x/$asset") 142 190 6
+}
+foreach ($asset in @('bl_quarry.png','bl_lock.png','bl_house.png','bl_mirror.png')) {
+    Assert-OpaqueFrameSheet (Join-Path $workspace "assets/1x/$asset") 34 34 6
+    Assert-OpaqueFrameSheet (Join-Path $workspace "assets/2x/$asset") 68 68 6
+}
 
 if ($legacy -match "pseudorandom\('lucky_money'\)") { $failures.Add('Shared lucky_money RNG stream remains') }
 if ($legacy -match 'function\s+Tag:init') { $failures.Add('Global Tag:init override remains') }
@@ -147,9 +197,10 @@ if (-not (Test-Path -LiteralPath (Join-Path $workspace 'docs/RELEASE_CERTIFICATI
 $metadataPath = Join-Path $workspace 'flounderjokers.json'
 try { $metadata = Get-Content -Raw $metadataPath | ConvertFrom-Json }
 catch { $failures.Add("Invalid metadata JSON: $($_.Exception.Message)") }
-if ($metadata.id -ne 'flounderjokers' -or $metadata.main_file -ne 'main.lua' -or $metadata.config_file -ne 'config.lua') { $failures.Add('Metadata ID, main_file, or config_file is incorrect') }
+if ($metadata.id -ne 'flounderjokers' -or $metadata.main_file -ne 'main.lua' -or $metadata.config_file -ne 'config.lua' -or $metadata.version -ne '3.0.0') { $failures.Add('Metadata ID, files, or 3.0.0 version is incorrect') }
+if (-not $metadata.optional_features.object_weights) { $failures.Add('Native object weighting feature is not declared') }
 
-$audio = @('arcana','stone','weapon','coin','gem','echo','transform','conjure','dice','cursed')
+$audio = @('arcana','stone','weapon','coin','gem','echo','transform','conjure','dice','cursed','deck','voucher','blind','challenge')
 $audioHashes = @{}
 $integratedLevels = [System.Collections.Generic.List[double]]::new()
 foreach ($name in $audio) {
@@ -206,7 +257,7 @@ if ($integratedLevels.Count -eq $audio.Count) {
     if ($spread -gt 5.0) { $failures.Add("Cross-family loudness spread $spread LU exceeds 5.0 LU") }
 }
 
-$luaFiles = @('config.lua','main.lua','FloundersJokers.lua','modules/dice_seals.lua','modules/dice_suite.lua','modules/sounds.lua','modules/presentation.lua','modules/config_ui.lua')
+$luaFiles = @('config.lua','main.lua','FloundersJokers.lua','modules/dice_seals.lua','modules/dice_suite.lua','modules/progression.lua','modules/decks.lua','modules/vouchers.lua','modules/blinds.lua','modules/challenges.lua','modules/sounds.lua','modules/presentation.lua','modules/config_ui.lua')
 foreach ($file in $luaFiles) {
     & npx --yes luaparse (Join-Path $workspace $file) *> $null
     if ($LASTEXITCODE -ne 0) { $failures.Add("Lua parse failed: $file") }
@@ -218,6 +269,7 @@ if ($failures.Count) { $failures | ForEach-Object { Write-Error $_ }; exit 1 }
 Write-Output "PASS: $($legacySlugs.Count + $suiteSlugs.Count) Jokers have exact 1x/2x assets."
 Write-Output 'PASS: 2 measured twelve-frame seal animations, a four-motif FX atlas, and 4 canonical Dice objects are present.'
 Write-Output 'PASS: all 60 presentation mappings, 25 probability hooks, layered bounded DrawStep physics, and Reduced Motion gates are present.'
+Write-Output 'PASS: 3 Decks, 4 Boss Blinds, 4 Vouchers, and 6 immediately available mastery Challenges pass progression QA.'
 Write-Output 'PASS: unique runtime art, saved presentation controls, metadata, RNG isolation, override safety, and Lua syntax checks are clean.'
 if ($AllowMissingGeneratedAudio -and $warnings.Count) { Write-Output "PENDING: $($warnings.Count) ElevenLabs masters; runtime fallbacks remain active." }
-else { Write-Output 'PASS: all 10 mastered audio families are present.' }
+else { Write-Output 'PASS: all 14 mastered audio families are present.' }

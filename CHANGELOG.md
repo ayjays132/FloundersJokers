@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0 — Curio Circuit
+
+- Added Loaded, Workshop, and Curator Decks with deterministic, tradeoff-backed openings.
+- Added Wax Stamp → Sealing Press and Display Case → Private Collection Voucher chains.
+- Added The Quarry, The Lock, The House, and The Mirror as native Boss Blinds with bounded per-Blind state.
+- Added six immediately available mastery challenges from First Roll to Grand Exhibition.
+- Added namespaced progression state and native object-weight composition; Curator and Display Case stack to X3 without replacing shop functions.
+- Added eleven bespoke progression illustrations and six-frame Reduced Motion-aware glint sheets at 1× and 2×.
+- Added Deck, Voucher, Blind, and Challenge audio masters under the existing voice budget.
+- Expanded strict QA to cover registrations, atlas geometry/diversity, prerequisites, state restoration, metadata, Lua parsing, and all 14 audio families.
+
 ## 2.1.0 — Kinetic polish
 
 - Expanded both canonical seal animations from six pulse frames to twelve authored squash/stretch, settle, and traveling-glint frames.

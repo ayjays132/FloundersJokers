@@ -1,6 +1,6 @@
 # Sound direction
 
-Flounder's Jokers uses ten short, dry effect families. Every Joker receives a stable pitch fingerprint inside one family, so all cards have identity without sixty simultaneous timbres competing with Balatro's score mix.
+Flounder's Jokers uses fourteen short, dry effect families. Every Joker and progression object receives a stable semantic cue without competing with Balatro's score mix.
 
 | Family | Cards | Mix intent |
 |---|---|---|
@@ -14,6 +14,10 @@ Flounder's Jokers uses ten short, dry effect families. Every Joker receives a st
 | Conjure | consumable creators | small dimensional pop + card flutter |
 | Dice | Dice Seal suite | one felt-table D20 roll and settled click |
 | Cursed | Cursed Dice Seal | reversed D20 rattle with a low, brief sting |
+| Deck | deck setup | felt roll and compact material knock |
+| Voucher | voucher redemption | brass token, paper seal, and restrained lift |
+| Blind | Boss Blind activation | low warning body with a short mechanical edge |
+| Challenge | mastery completion | bright arcane resolve and single token accent |
 
 Master design constraints: 0.65–1.15 seconds, no speech, no melody, no sub-bass, no long reverb, no clipping, centered mono-compatible image, and enough transient separation to sit beneath score-counting sounds.
 
