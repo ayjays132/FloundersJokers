@@ -23,6 +23,10 @@ SMODS.compat_0_9_8.with_compat(function()
     end
 end)
 
+-- Load custom sound cues and presentation polish early so that sound bindings
+-- and fallback tables are registered for all subsequent modules.
+assert(SMODS.load_file('modules/sounds.lua'))()
+
 -- Dice Seals and their six-card suite are canonical creator content.
 assert(SMODS.load_file('modules/dice_seals.lua'))()
 assert(SMODS.load_file('modules/dice_suite.lua'))()
@@ -41,6 +45,6 @@ assert(SMODS.load_file('modules/challenges.lua'))()
 
 -- Presentation polish is canonical; volume remains configurable in the saved
 -- mod config for accessibility and streamer workflows.
-assert(SMODS.load_file('modules/sounds.lua'))()
 assert(SMODS.load_file('modules/presentation.lua'))()
 assert(SMODS.load_file('modules/config_ui.lua'))()
+

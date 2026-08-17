@@ -66,7 +66,7 @@ cursed_seal = SMODS.Seal {
     atlas = 'cursed_dice_seal',
     pos = { x = 0, y = 0 },
     badge_colour = HEX('C93C4A'),
-    sound = { sound = 'red_seal', per = 0.82, vol = 0.55 },
+    sound = { sound = 'gold_seal', per = 0.82, vol = 0.55 },
     loc_txt = {
         label = 'Cursed Dice Seal',
         name = 'Cursed Dice Seal',
