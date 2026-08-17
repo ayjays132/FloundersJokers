@@ -1,5 +1,11 @@
 # Remaster art direction
 
+## Native-scale finishing standard
+
+The 71×95 texture is the visual authority. High-resolution composition masters are edge-aware smoothed, reduced to a maximum 24-colour per-card palette with rare semantic accents retained, and inspected for low-contrast micro-texture chatter before export. The 142×190 companion must be an exact nearest-neighbour reconstruction of that native texture—never a separately cropped or differently aligned illustration.
+
+Deck backs, Vouchers, and Blind emblems use transparent surroundings and tightly occupied silhouettes. Their six-frame sheets share identical cell geometry and subject placement; animation may move a glint or small semantic accent but cannot resize or drift the main object. The automated gate requires at least 30% foreground occupancy for every progression frame.
+
 ## The visual system
 
 Every card follows the same production rules: a tall vintage Joker frame, vertical `JOKER` lettering, a source-derived limited palette, crisp pixel clusters, controlled dithering, printed-paper texture, strong thumbnail silhouette, layered light, and a unique mechanic-driven centerpiece.

@@ -2,6 +2,10 @@
 
 ## 3.0.0 — Curio Circuit
 
+- Refinished all 60 Joker pairs through a reproducible edge-aware native-scale pipeline: compositions retained, rare semantic accents preserved, average palettes reduced from 225 to 24 colours, low-contrast texture chatter reduced 96.66%, and every 2× file rebuilt as an exact nearest-pixel companion.
+- Reframed all 3 Deck, 4 Voucher, and 4 Boss Blind animation sheets around transparent full-size silhouettes; Deck foreground occupancy now reaches 57–73% instead of rendering as a small emblem inside an opaque black card.
+- Added strict palette, visual-noise, foreground-occupancy, and exact 1×/2× correspondence gates.
+- Rebuilt the README gallery and progression/token boards from the final shipped runtime assets with casino-cabinet borders and game-native presentation.
 - Corrected all 54 compatibility-adapter atlas keys, passed each atlas explicitly through its Joker constructor, and added a registered-object runtime binder so every creator Joker renders its bespoke face instead of Balatro's stock fallback.
 - Guarded all legacy suit checks against non-individual calculation contexts, preventing `other_card` crashes during destruction and global evaluation passes.
 - Added a packaged, default-only migration for vanilla in-progress saves missing Steamodded 1814a scoring, hand-limit, CardArea, PokerHand, and permanent-bonus fields.

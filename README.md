@@ -44,6 +44,8 @@
 
 ![All 60 remastered Jokers](docs/remaster-gallery.png)
 
+<div align="center"><sub>The gallery is generated from the exact shipped 2× textures—never concept-only artwork.</sub></div>
+
 ## The definitive pack
 
 <table>
@@ -119,9 +121,30 @@ This mirrors the creator’s stone / tool / gem / value / retrigger / transforme
 
 Curator and Display Case use Steamodded's native object-weight context and stack multiplicatively to X3. Private Collection excludes Negative editions. The House stores and restores its exact incoming probability numerator on defeat or disable. All run state lives under `G.GAME.fj_progression`.
 
+<picture>
+  <img src="docs/progression-runtime-qa.png" alt="Gold-and-green framed runtime collection panel showing the full-size Loaded, Workshop, and Curator deck backs, four Voucher still lifes, and four Boss Blind emblems" width="100%">
+</picture>
+
+<div align="center"><sub>Actual first frames from the packaged 2× atlases. Every object contains six aligned Reduced Motion-aware frames.</sub></div>
+
 ## Visual and effects direction
 
 Repeated placeholders were replaced with mechanic-specific still lifes and scenes. Every card keeps the recognizable vertical frame language, but its subject, silhouette, materials, lighting, and prop story are individual. Dice Seal tokens use a 12-frame squash/stretch, settle, and traveling-glint cycle rather than a global shader hook, so editions and other render effects remain compatible. Balatro's Reduced Motion setting freezes the added seal animation and suppresses presentation-layer movement.
+
+### Native-scale clarity pass
+
+The catalogue is finished for how Balatro actually displays cards—not only for enlarged gallery viewing. A reproducible edge-aware pipeline treats each previous 2× illustration as the composition master, consolidates similar neighbouring colours without crossing strong silhouettes, preserves rare semantic accents, limits each card to a deliberate 24-colour palette, and reconstructs the 2× companion from exact native pixels.
+
+<table>
+  <tr>
+    <td align="center" width="25%"><strong>60 / 60</strong><br><sub>compositions preserved</sub></td>
+    <td align="center" width="25%"><strong>225 → 24</strong><br><sub>average colours per card</sub></td>
+    <td align="center" width="25%"><strong>96.66%</strong><br><sub>less low-contrast texture chatter</sub></td>
+    <td align="center" width="25%"><strong>Exact 2×</strong><br><sub>nearest-pixel companions</sub></td>
+  </tr>
+</table>
+
+Deck-back foreground occupancy now reaches 57–73% of each frame instead of appearing as a small emblem inside an opaque black card. Voucher and Blind art uses transparent, tightly framed silhouettes, preserving Balatro's native collection background and card motion.
 
 Successful effects use layered, readable feedback:
 
@@ -132,12 +155,18 @@ Successful effects use layered, readable feedback:
 
 The Steamodded mod page includes accessibility controls for card sound cues and kinetic trigger effects. These controls never alter scoring or card logic, and Balatro's global Reduced Motion setting always takes priority.
 
+<picture>
+  <img src="docs/seal-animation-board.png" alt="A gold-and-green framed contact sheet showing all twelve native frames for Dice Seal and Cursed Dice Seal" width="100%">
+</picture>
+
 <details>
-<summary><strong>View the progression runtime QA board</strong></summary>
+<summary><strong>Open the mastered audio fingerprint cabinet</strong></summary>
 
-This board shows the reduced in-game-scale art rather than the high-resolution source, including deck backs, Boss Blind emblems, and both Voucher chains.
+Every family has a distinct time/frequency silhouette and still passes the same loudness, peak, duration, concurrency, and cooldown limits.
 
-![Progression runtime QA board](docs/progression-runtime-qa.png)
+<picture>
+  <img src="docs/audio-spectrograms.png" alt="Measured spectrogram contact sheet for all fourteen mastered audio families" width="100%">
+</picture>
 
 </details>
 
@@ -202,6 +231,9 @@ To rebuild the gallery or seal animation sheets:
 
 ```powershell
 .\tools\build-gallery.ps1
+python .\tools\refine-joker-art.py --palette 24
+python .\tools\refine-progression-art.py
+python .\tools\build-readme-panels.py
 .\tools\build-seal-animation.ps1 -SourceName dice_seal.png -OutputName dice_seal_animated.png
 ```
 

@@ -43,11 +43,18 @@ This regression pass additionally certifies:
 - the 60-card README gallery was regenerated directly from the shipped 2× runtime sprites after the final art audit;
 - no local Steamodded source modification is required or included.
 
+## Native-scale visual certification
+
+The final catalogue was reprocessed from the existing 2× compositions rather than regenerated into different subjects. Across all 60 Joker pairs, average palette complexity fell from 225 colours to 24 and low-contrast neighbour chatter fell 96.66%. Strong silhouettes and rare semantic accents were retained, every 1× card remains 71×95, and every 2× card is now an exact 2×2 nearest-pixel reconstruction.
+
+All 11 progression sheets were reframed from their original still lifes. Opaque black gutters were removed, Deck foreground occupancy increased to 57–73%, and every Deck, Voucher, and Boss Blind frame now exceeds 30% measured foreground occupancy. The six-frame timing and semantic glints remain intact. README catalogue, progression, and Dice-token boards were regenerated directly from these packaged runtime atlases.
+
 ## Deterministic release gates
 
 - 60 named Jokers, comprising 54 creator cards and 6 aligned Dice-suite additions;
 - 60 exact `71×95` sprites and 60 exact `142×190` companions;
 - unique runtime-art hashes with no unregistered Joker sprite in either scale;
+- measured 24-colour ceilings, 96.66% texture-chatter reduction, exact nearest-pixel 2× companions, and progression foreground-occupancy gates;
 - 54 explicit legacy constructor-atlas bindings plus a fail-closed registered-object runtime audit;
 - 2 twelve-frame animated seal sheets with occupancy, edge-bleed, centroid-drift, and silhouette-diversity checks;
 - 4 canonical Dice objects and complete presentation mapping;
